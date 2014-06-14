@@ -2,7 +2,7 @@ package com.self.service.logging.monitor;
 
 import java.io.IOException;
 
-import com.self.service.util.email.EmailUtility;
+import com.self.service.util.email.EmailUtil;
 
 class LogStatus {
 
@@ -96,7 +96,7 @@ class LogStatus {
 					.append(firstMessage);
 		
 		try {
-			EmailUtility emailUtil = new EmailUtility();
+			EmailUtil emailUtil = new EmailUtil();
 			emailUtil.sendEmail(emailMessage.toString());
 		} catch (ClassNotFoundException | IllegalAccessException | IOException e) {
 			System.out.println(e.toString());
