@@ -85,7 +85,7 @@ class LogStatus {
 
 	private void constructEmail(int warningCount, int errorCount, 
 			boolean toSendError, String firstMessage) {
-		StringBuffer emailMessage = new StringBuffer(1000);
+		StringBuilder emailMessage = new StringBuilder(500);
 		
 		emailMessage
 					.append("Warning Count:").append(warningCount).append("\n")

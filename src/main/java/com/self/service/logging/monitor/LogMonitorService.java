@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobDetail;
+import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
@@ -23,6 +24,8 @@ public class LogMonitorService {
 
 	private Optional<Scheduler> scheduler = Optional.absent();
 	private boolean jobCreated = false;
+	private boolean jobStarted = false;
+	private final JobKey JOB_KEY = new JobKey("logJob");
 	
 	private String cronSchedule = CRON_DEFAULT_SCHEDULE;
 	private final String CLASS_NAME="com.self.service.logging.monitor.LogMonitorService";
@@ -62,7 +65,8 @@ public class LogMonitorService {
 		if (scheduler.isPresent()) {
 			try {
 				started = scheduler.get().isStarted()
-						&& scheduler.get().isShutdown() == false;
+						&& scheduler.get().isShutdown() == false
+						&& jobStarted;
 			} catch (SchedulerException e) {
 				e.printStackTrace();
 			}
@@ -73,14 +77,28 @@ public class LogMonitorService {
 
 	public void startScheduler() {
 		try {
-			if (this.scheduler.isPresent() && isScheduleStarted() == false) {
-				scheduler.get().start();
-
-				if (jobCreated == false) {
+			if (this.scheduler.isPresent()){
+				if (isScheduleStarted() == false && jobCreated==false) {
 					createLogScheduler();
 					jobCreated = true;
+					scheduler.get().start();
+				}else{
+					scheduler.get().resumeJob(JOB_KEY);
 				}
+				jobStarted = true;
 			}
+		} catch (SchedulerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Once shutdown it cannot be recreated.
+	 */
+	public void shutdownScheduler() {
+		try {
+			if (this.scheduler.isPresent() && scheduler.get().isStarted())
+				scheduler.get().shutdown();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
@@ -88,8 +106,10 @@ public class LogMonitorService {
 
 	public void stopScheduler() {
 		try {
-			if (this.scheduler.isPresent() && scheduler.get().isStarted())
-				scheduler.get().shutdown();
+			if (this.scheduler.isPresent() && scheduler.get().isStarted()){
+				scheduler.get().pauseJob(JOB_KEY);
+				jobStarted = false;
+			}
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
@@ -100,7 +120,7 @@ public class LogMonitorService {
 		if (scheduler.isPresent() == false)
 			return;
 
-		JobDetail job = newJob(LogMonitorJob.class).withIdentity("logJob")
+		JobDetail job = newJob(LogMonitorJob.class).withIdentity(JOB_KEY)
 				.build();
 
 		
