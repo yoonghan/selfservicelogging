@@ -1,8 +1,11 @@
 package com.self.service.logging.log;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import com.self.service.logging.impl.PropertyFiles;
 import com.self.service.logging.monitor.LogMonitorService;
+import com.self.service.util.common.PropertyLoaderUtil;
 
 public class LogUtil {
 	
@@ -26,11 +29,17 @@ public class LogUtil {
 	}
 	
 	private static void initLogs() {
-		LogReader logReader = new LogReader();
-		enableError = logReader.isErrorEnabled();
-		enableInfo = logReader.isInfoEnabled();
-		enableWarn = logReader.isWarningEnabled();
-		enableMsgSend = logReader.isEmailSendEnabled();
+		LogBean logBean = new LogBean();
+		try {
+			new PropertyLoaderUtil().loadProperty(PropertyFiles.LOGFILE, logBean);
+
+			enableError = logBean.isErrorEnabled();
+			enableInfo = logBean.isInfoEnabled();
+			enableWarn = logBean.isWarningEnabled();
+			enableMsgSend = logBean.isEmailSendEnabled();
+		} catch (ClassNotFoundException | IllegalAccessException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private synchronized static LogUtil createLog(String className){

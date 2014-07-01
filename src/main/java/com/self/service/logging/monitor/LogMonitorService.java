@@ -1,7 +1,6 @@
 package com.self.service.logging.monitor;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobDetail;
@@ -28,7 +27,6 @@ public class LogMonitorService {
 	private final JobKey JOB_KEY = new JobKey("logJob");
 	
 	private String cronSchedule = CRON_DEFAULT_SCHEDULE;
-	private final String CLASS_NAME="com.self.service.logging.monitor.LogMonitorService";
 
 	private final static class Singleton{
 		public final static LogMonitorService instance = new LogMonitorService();
@@ -48,10 +46,10 @@ public class LogMonitorService {
 		}
 		
 		try {
-			Properties prop = new Properties();
-			new PropertyLoaderUtil().loadProperty(prop, CLASS_NAME, LOGFILE);
-			cronSchedule = prop.getProperty(CRON_SCHEDULE_RUN,CRON_DEFAULT_SCHEDULE);
-		} catch (ClassNotFoundException | IOException e) {
+			LogMonitorBean logMonBean = new LogMonitorBean();
+			new PropertyLoaderUtil().loadProperty(LOGFILE, logMonBean);
+			cronSchedule = logMonBean.getConScheduler();
+		} catch (ClassNotFoundException | IOException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 
