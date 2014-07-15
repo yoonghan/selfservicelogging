@@ -1,91 +1,61 @@
 package com.self.service.logging.log;
 
-import java.io.IOException;
-import java.util.HashMap;
-
-import com.self.service.logging.impl.PropertyFiles;
+import com.self.service.logging.impl.Log;
 import com.self.service.logging.monitor.LogMonitorService;
-import com.self.service.util.common.PropertyLoaderUtil;
 
-public class LogUtil {
-	
-	private final static int LOG_SIZE = 200;
-	
-	private final static HashMap<String, LogUtil> setOfLogs = new HashMap<String,LogUtil>(LOG_SIZE); 
+public class LogUtil implements Log{
 	
 	private final String CLASS_NAME_LOG;
 	
-	private static boolean enableMsgSend = true;
-	private static boolean enableInfo = true;
-	private static boolean enableWarn = true;
-	private static boolean enableError = true;
-
-	static{
-		initLogs();
-	}
+	private final boolean ENABLE_MSG_SEND;
+	private final boolean ENABLE_INFO;
+	private final boolean ENABLE_WARN;
+	private final boolean ENABLE_ERROR;
 	
-	private LogUtil(String CLASS_NAME_LOG){
+	private static final LogMonitorService logMonService= LogMonitorService.getInstance();
+	
+	LogUtil(String CLASS_NAME_LOG, boolean enableMsgSend, boolean enableInfo, boolean enableWarn, boolean enableError){
 		this.CLASS_NAME_LOG = CLASS_NAME_LOG;
+		this.ENABLE_MSG_SEND = enableMsgSend;
+		this.ENABLE_INFO = enableInfo;
+		this.ENABLE_WARN = enableWarn;
+		this.ENABLE_ERROR = enableError;
 	}
 	
-	private static void initLogs() {
-		LogBean logBean = new LogBean();
-		try {
-			new PropertyLoaderUtil().loadProperty(PropertyFiles.LOGFILE, logBean);
-
-			enableError = logBean.isErrorEnabled();
-			enableInfo = logBean.isInfoEnabled();
-			enableWarn = logBean.isWarningEnabled();
-			enableMsgSend = logBean.isEmailSendEnabled();
-		} catch (ClassNotFoundException | IllegalAccessException | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private synchronized static LogUtil createLog(String className){
-		LogUtil logUtil = new LogUtil(className);
-		setOfLogs.put(className, logUtil);
-		return logUtil;
-	}
-	
-	public static LogUtil getInstance(String className){
-		if(setOfLogs.containsKey(className)){
-			return setOfLogs.get(className);
-		}else{
-			return createLog(className);
-		}
-	}
-	
+	@Override
 	public void error(String error){
 		error(error, null);
 	}
 	
+	@Override
 	public void error(String error, Exception e){
-		if(enableError){
+		if(ENABLE_ERROR){
 			String msgSend = String.format("%s : %s\n%s",
 					CLASS_NAME_LOG,
 					error,
 					e==null?"":e.toString());
 			
 			System.err.println(msgSend);
-			LogMonitorService.getInstance().increaseErrorCounter();
+			logMonService.increaseErrorCounter();
 			
-			if(enableMsgSend){
-				LogMonitorService.getInstance().logErrorMessage(msgSend);
+			if(ENABLE_MSG_SEND){
+				logMonService.logErrorMessage(msgSend);
 			}
 		}
 	}
 	
+	@Override	
 	public void info(String info){
-		if(enableInfo){
+		if(ENABLE_INFO){
 			System.out.println(String.format("%s : %s",CLASS_NAME_LOG,info));
 		}
 	}
 	
+	@Override
 	public void warn(String warn){
-		if(enableWarn){
+		if(ENABLE_WARN){
 			System.out.println(String.format("WARNING: %s : %s",CLASS_NAME_LOG,warn));
-			LogMonitorService.getInstance().increaseWarningCounter();
+			logMonService.increaseWarningCounter();
 		}
 	}
 }

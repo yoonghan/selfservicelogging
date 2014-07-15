@@ -99,7 +99,7 @@ class LogStatus {
 			EmailUtil emailUtil = new EmailUtil();
 			emailUtil.sendEmail(emailMessage.toString());
 		} catch (ClassNotFoundException | IllegalAccessException | IOException e) {
-			System.out.println(e.toString());
+			System.err.println(e.toString());
 			e.printStackTrace();
 		}
 		
