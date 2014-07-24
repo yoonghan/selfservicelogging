@@ -1,7 +1,7 @@
-package com.self.service.logging.log;
+package com.jaring.jom.logging.log;
 
-import com.self.service.logging.impl.Log;
-import com.self.service.logging.monitor.LogMonitorService;
+import com.jaring.jom.logging.impl.Log;
+import com.jaring.jom.logging.monitor.LogMonitorService;
 
 public class LogUtil implements Log{
 	

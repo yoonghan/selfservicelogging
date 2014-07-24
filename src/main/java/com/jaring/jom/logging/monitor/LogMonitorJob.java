@@ -1,4 +1,4 @@
-package com.self.service.logging.monitor;
+package com.jaring.jom.logging.monitor;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

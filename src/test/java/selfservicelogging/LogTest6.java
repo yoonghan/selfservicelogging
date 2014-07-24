@@ -7,15 +7,12 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.self.service.logging.impl.Log;
-import com.self.service.logging.log.LogFactory;
-import com.self.service.logging.monitor.LogMonitorService;
+import com.jaring.jom.logging.impl.Log;
+import com.jaring.jom.logging.log.LogFactory;
+import com.jaring.jom.logging.monitor.LogMonitorService;
 
-public class LogTest5 {
-
-	private final String CLASS_NAME = this.getClass().getName();
-	
-	private final Log log = LogFactory.getLogger(CLASS_NAME);
+public class LogTest6 {
+	private final Log log = LogFactory.getLogger("selfservicelogging.LogTest5");
 	
 	@Before
 	public void init(){

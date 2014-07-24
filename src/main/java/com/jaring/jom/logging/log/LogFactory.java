@@ -1,11 +1,11 @@
-package com.self.service.logging.log;
+package com.jaring.jom.logging.log;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.self.service.logging.impl.Log;
-import com.self.service.logging.impl.PropertyFiles;
-import com.self.service.util.common.PropertyLoaderUtil;
+import com.jaring.jom.logging.impl.Log;
+import com.jaring.jom.logging.impl.PropertyFiles;
+import com.jaring.jom.util.common.PropertyLoaderUtil;
 
 public class LogFactory {
 	

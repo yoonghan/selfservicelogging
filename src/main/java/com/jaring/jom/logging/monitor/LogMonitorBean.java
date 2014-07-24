@@ -1,11 +1,11 @@
-package com.self.service.logging.monitor;
+package com.jaring.jom.logging.monitor;
 
-import static com.self.service.logging.impl.PropertyFiles.CRON_DEFAULT_SCHEDULE;
-import static com.self.service.logging.impl.PropertyFiles.CRON_SCHEDULE_RUN;
+import static com.jaring.jom.logging.impl.PropertyFiles.CRON_DEFAULT_SCHEDULE;
+import static com.jaring.jom.logging.impl.PropertyFiles.CRON_SCHEDULE_RUN;
 
 import java.util.Properties;
 
-import com.self.service.util.impl.PropertyMapperImpl;
+import com.jaring.jom.util.impl.PropertyMapperImpl;
 
 class LogMonitorBean implements PropertyMapperImpl {
 

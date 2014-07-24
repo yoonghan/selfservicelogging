@@ -1,4 +1,4 @@
-package com.self.service.logging.impl;
+package com.jaring.jom.logging.impl;
 
 public interface Log {
 	public void error(String error);

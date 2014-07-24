@@ -1,4 +1,4 @@
-package com.self.service.logging.monitor;
+package com.jaring.jom.logging.monitor;
 
 import java.io.IOException;
 
@@ -14,10 +14,10 @@ import static org.quartz.TriggerBuilder.*;
 
 import org.quartz.impl.StdSchedulerFactory;
 
-import static com.self.service.logging.impl.PropertyFiles.*;
+import static com.jaring.jom.logging.impl.PropertyFiles.*;
 
 import com.google.common.base.Optional;
-import com.self.service.util.common.PropertyLoaderUtil;
+import com.jaring.jom.util.common.PropertyLoaderUtil;
 
 public class LogMonitorService {
 

@@ -1,8 +1,8 @@
-package com.self.service.logging.monitor;
+package com.jaring.jom.logging.monitor;
 
 import java.io.IOException;
 
-import com.self.service.util.email.EmailUtil;
+import com.jaring.jom.util.email.EmailUtil;
 
 class LogStatus {
 
