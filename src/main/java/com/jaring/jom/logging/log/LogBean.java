@@ -15,13 +15,13 @@ class LogBean implements PropertyMapperImpl {
 	
 	private final int MAX_SWITCH = 5;
 	
-	private int enabledLog = 0b00000;
+	private int enabledLog = 0b01111;
 	
 	@Override
 	public void map(Properties property) throws IllegalAccessException{
 		String logEnabling = property.getProperty(ENABLE_LOG);
 
-		if(logEnabling != null){
+		try{
 			
 			//check length and add 0 to fill in the subsequent values.
 			for(int i=0; i < MAX_SWITCH+1; i++){
@@ -29,6 +29,8 @@ class LogBean implements PropertyMapperImpl {
 			}
 			
 			enabledLog = Integer.parseInt(logEnabling, 2);
+		}catch(NumberFormatException nfe){
+			throw new IllegalAccessException("Unknown "+ENABLE_LOG+" configured: Using default log.");
 		}
 	}
 
