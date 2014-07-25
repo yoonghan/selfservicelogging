@@ -11,8 +11,8 @@ import com.jaring.jom.logging.impl.Log;
 import com.jaring.jom.logging.log.LogFactory;
 import com.jaring.jom.logging.monitor.LogMonitorService;
 
-public class LogTest6 {
-	private final Log log = LogFactory.getLogger("selfservicelogging.LogTest5");
+public class LogTest {
+	private final Log log = LogFactory.getLogger("selfservicelogging.LogTest");
 	
 	@Before
 	public void init(){
@@ -87,5 +87,4 @@ public class LogTest6 {
 		Assert.assertEquals("Warn:0,Error:0",LogMonitorService.getInstance().getMessageCounts());
 
 	}
-	
 }

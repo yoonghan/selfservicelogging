@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <groupId>selfservicelogging</groupId>
   <artifactId>selfservicelogging</artifactId>
-  <name>selfservicelogging</name>
-  <version>1.0.0</version>
-  <description>Logging mechanism</description>
   <parent>
   	<artifactId>selfserviceparent</artifactId>
   	<groupId>jom.jaring</groupId>
   	<version>1.0.0</version>
   </parent>
+  <name>selfservicelogging</name>
+  <description>logging</description>
   <properties>
   	<jjutility>1.0.0</jjutility>
   </properties>
@@ -48,12 +48,6 @@
 		<artifactId>mail</artifactId>
 		<version>${mail.version}</version>
 		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.10</version>
-		<scope>test</scope>
 	</dependency>
   </dependencies>
   <build>
