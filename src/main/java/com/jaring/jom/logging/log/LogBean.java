@@ -21,12 +21,15 @@ class LogBean implements PropertyMapperImpl {
 	public void map(Properties property) throws IllegalAccessException{
 		String logEnabling = property.getProperty(ENABLE_LOG);
 
-		//check length and add 0 if necessary.
-		for(int i=0; i < MAX_SWITCH+1; i++){
-			logEnabling = "0"+logEnabling;
+		if(logEnabling != null){
+			
+			//check length and add 0 to fill in the subsequent values.
+			for(int i=0; i < MAX_SWITCH+1; i++){
+				logEnabling = "0"+logEnabling;
+			}
+			
+			enabledLog = Integer.parseInt(logEnabling, 2);
 		}
-		
-		enabledLog = Integer.parseInt(logEnabling, 2);
 	}
 
 	public boolean isInfoEnabled() {
