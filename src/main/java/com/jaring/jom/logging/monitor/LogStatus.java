@@ -1,8 +1,6 @@
 package com.jaring.jom.logging.monitor;
 
-import java.io.IOException;
-
-import com.jaring.jom.util.email.EmailUtil;
+import com.jaring.jom.util.email.EmailUtility;
 
 class LogStatus {
 
@@ -95,13 +93,8 @@ class LogStatus {
 					.append("\n")
 					.append(firstMessage);
 		
-		try {
-			EmailUtil emailUtil = new EmailUtil();
-			emailUtil.sendEmail(emailMessage.toString());
-		} catch (ClassNotFoundException | IllegalAccessException | IOException e) {
-			System.err.println(e.toString());
-			e.printStackTrace();
-		}
+		EmailUtility emailUtil = new EmailUtility();
+		emailUtil.sendEmail(emailMessage.toString());
 		
 		emailMessage = null;
 	}

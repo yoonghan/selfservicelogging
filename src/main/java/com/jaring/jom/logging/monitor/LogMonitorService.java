@@ -1,7 +1,5 @@
 package com.jaring.jom.logging.monitor;
 
-import java.io.IOException;
-
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -45,11 +43,14 @@ public class LogMonitorService {
 			e.printStackTrace();
 		}
 		
-		try {
-			LogMonitorBean logMonBean = new LogMonitorBean();
-			new PropertyLoaderUtil().loadProperty(LOGFILE, logMonBean);
-			cronSchedule = logMonBean.getConScheduler();
-		} catch (ClassNotFoundException | IOException | IllegalAccessException e) {
+		LogMonitorBean logMonBean = new LogMonitorBean();
+		try{
+			PropertyLoaderUtil.loadProperty(LOGFILE, logMonBean);
+			String cronSchedule = logMonBean.getCronScheduler();
+			if(cronSchedule != null && cronSchedule.isEmpty() == false)
+				this.cronSchedule = cronSchedule;
+		}catch(Exception e){
+			System.err.println("Property loaded with error:"+e.getMessage());
 			e.printStackTrace();
 		}
 

@@ -1,6 +1,5 @@
 package com.jaring.jom.logging.log;
 
-import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.jaring.jom.logging.impl.Log;
@@ -19,16 +18,16 @@ public class LogFactory {
 	
 	private static void initLogs() {
 		LogBean logBean = new LogBean();
-		try {
-			new PropertyLoaderUtil().loadProperty(PropertyFiles.LOGFILE, logBean);
-
-			enableError = logBean.isErrorEnabled();
-			enableInfo = logBean.isInfoEnabled();
-			enableWarn = logBean.isWarningEnabled();
-			enableMsgSend = logBean.isEmailSendEnabled();
-		} catch (ClassNotFoundException | IllegalAccessException | IOException e) {
-			//e.printStackTrace();
+		try{
+			PropertyLoaderUtil.loadProperty(PropertyFiles.LOGFILE, logBean);
+		}catch(Exception fe){
+			System.err.println("Log initialize error"+fe.getMessage());
 		}
+
+		enableError = logBean.isErrorEnabled();
+		enableInfo = logBean.isInfoEnabled();
+		enableWarn = logBean.isWarningEnabled();
+		enableMsgSend = logBean.isEmailSendEnabled();
 	}
 
 	static{

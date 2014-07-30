@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>selfservicelogging</groupId>
   <artifactId>selfservicelogging</artifactId>
   <parent>
   	<artifactId>selfserviceparent</artifactId>
@@ -27,7 +26,7 @@
 	</dependency>
 	<dependency>
 		<groupId>jom.jaring</groupId>
-		<artifactId>jjutility</artifactId>
+		<artifactId>JomJaringUtilities_scala</artifactId>
 		<version>${jjutility}</version>
 		<scope>provided</scope>
 	</dependency>
@@ -35,12 +34,6 @@
 		<groupId>com.google.guava</groupId>
 		<artifactId>guava</artifactId>
 		<version>${guava.version}</version>
-		<scope>provided</scope>
-	</dependency>
-	<dependency>
-		<groupId>javax.jms</groupId>
-		<artifactId>jms</artifactId>
-		<version>${jms.version}</version>
 		<scope>provided</scope>
 	</dependency>
 	<dependency>

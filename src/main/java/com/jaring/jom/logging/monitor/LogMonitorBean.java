@@ -5,19 +5,19 @@ import static com.jaring.jom.logging.impl.PropertyFiles.CRON_SCHEDULE_RUN;
 
 import java.util.Properties;
 
-import com.jaring.jom.util.impl.PropertyMapperImpl;
+import com.jaring.jom.util.bean.PropertyBeanMapper;
 
-class LogMonitorBean implements PropertyMapperImpl {
+class LogMonitorBean implements PropertyBeanMapper {
 
-	private String conScheduler; 
+	private String cronScheduler; 
 	
 	@Override
-	public void map(Properties property) throws IllegalAccessException {
-		conScheduler = property.getProperty(CRON_SCHEDULE_RUN,CRON_DEFAULT_SCHEDULE);
+	public void map(Properties property) {
+		cronScheduler = property.getProperty(CRON_SCHEDULE_RUN,CRON_DEFAULT_SCHEDULE);
 	}
 	
-	public String getConScheduler(){
-		return conScheduler;
+	public String getCronScheduler(){
+		return cronScheduler;
 	}
 
 }
